@@ -4,7 +4,9 @@ const Body = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen bg-transparent">
       {/* Video Section with Border and Border Radius */}
-      <div className="relative w-full max-w-3xl" style={{ height: "250px" }}>
+      <div className="relative w-full max-w-3xl" style={{ height: "400px" }}>
+        {" "}
+        {/* Increased height here */}
         <iframe
           className="absolute top-0 left-0 w-full h-full border-2 border-gray-300 rounded-lg" // Border and border-radius added here
           src="https://www.youtube.com/embed/fiMemypKqEI" // Replace 'example' with your video ID
