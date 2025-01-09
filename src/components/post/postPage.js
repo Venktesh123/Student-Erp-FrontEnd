@@ -12,7 +12,7 @@ const PostPage = () => {
   // Toggle between PostList and CreatePost
   const handleCreatePostClick = () => {
     setIsCreateMode(true);
-    navigate("/student/create/post");
+    navigate("/student/create/post"); // Ensure this route exists in your routing setup
   };
 
   const handleBackToPostList = () => {
