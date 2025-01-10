@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 const Body = () => {
   // Mock data for a single course, unit, and lectures
@@ -7,7 +8,7 @@ const Body = () => {
     unit: [
       {
         unitName: "Unit and Dimension",
-        icon: "📚", // Add an icon for the unit
+        icon: "📚",
         lectures: [
           { lectureName: "Lecture 1.1", videoId: "fiMemypKqEI" },
           { lectureName: "Lecture 1.2", videoId: "yzgGHAoN_68" },
@@ -15,7 +16,7 @@ const Body = () => {
       },
       {
         unitName: "Applications",
-        icon: "📝", // Add an icon for the unit
+        icon: "📝",
         lectures: [
           { lectureName: "Lecture 2.1", videoId: "fiMemypKqEI" },
           { lectureName: "Lecture 2.2", videoId: "yzgGHAoN_68" },
@@ -24,18 +25,39 @@ const Body = () => {
     ],
   };
 
-  // Set default video as the first lecture of the first unit
   const [selectedVideo, setSelectedVideo] = useState(
     mockData.unit[0].lectures[0].videoId
   );
-  const [expandedUnit, setExpandedUnit] = useState(null); // To track the expanded unit
+  const [expandedUnit, setExpandedUnit] = useState(null);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const handleLectureClick = (videoId) => {
-    setSelectedVideo(videoId); // Update the video when a new lecture is selected
+    setSelectedVideo(videoId);
   };
 
   const toggleUnit = (unitIndex) => {
-    setExpandedUnit(expandedUnit === unitIndex ? null : unitIndex); // Toggle unit dropdown visibility
+    setExpandedUnit(expandedUnit === unitIndex ? null : unitIndex);
+  };
+
+  const handleQuestionChange = (event) => {
+    setQuestion(event.target.value);
+  };
+
+  const handleQuestionSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5001/api/chatboat/ask-question",
+        {
+          question,
+        }
+      );
+      console.log(response.data.answer, "ans");
+      setAnswer(response.data.answer); // Set the answer received from the API
+    } catch (error) {
+      console.error("Error fetching answer:", error);
+      setAnswer("Sorry, there was an error fetching the answer.");
+    }
   };
 
   return (
@@ -88,7 +110,7 @@ const Body = () => {
         {selectedVideo ? (
           <div
             className="relative w-full max-w-3xl"
-            style={{ height: "400px" }}
+            style={{ height: "300px" }}
           >
             <iframe
               className="absolute top-0 left-0 w-full h-full border-2 border-gray-300 rounded-lg"
@@ -105,16 +127,31 @@ const Body = () => {
           </div>
         )}
 
-        {/* Text Area Section Below the Video */}
-        <div className="w-full max-w-3xl mt-4 px-4">
-          <textarea
+        {/* Input Section Below the Video */}
+        <div className="w-full max-w-3xl mt-4 px-4 flex">
+          <input
             id="question"
-            rows="6"
-            className="w-full p-5 border border-gray-300 rounded-md resize-none max-h-[200px] overflow-y-auto"
-            style={{ height: "39%" }}
+            type="text"
+            className="w-full p-5 border border-gray-300 rounded-md"
             placeholder="Ask me anything..."
-          ></textarea>
+            value={question}
+            onChange={handleQuestionChange}
+          />
+          <button
+            onClick={handleQuestionSubmit}
+            className="ml-4 p-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            Ask Question
+          </button>
         </div>
+
+        {/* Display the Question and Answer */}
+        {answer && (
+          <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl">
+            <p className="font-semibold">Answer:</p>
+            <p>{answer}</p>
+          </div>
+        )}
       </div>
     </div>
   );
