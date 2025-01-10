@@ -38,7 +38,8 @@ const Sidebar = () => {
             to="/student/home"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
-            }>
+            }
+          >
             <HomeIcon className="" />
             <h1 className="font-normal">Dashboard</h1>
           </NavLink>
@@ -46,7 +47,8 @@ const Sidebar = () => {
             to="/student/profile"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
-            }>
+            }
+          >
             <AssignmentIndIcon className="" />
             <h1 className="font-normal">Profile</h1>
           </NavLink>
@@ -56,7 +58,8 @@ const Sidebar = () => {
             to="/student/testresult"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
-            }>
+            }
+          >
             <AddIcon className="" />
             <h1 className="font-normal">Test results</h1>
           </NavLink>
@@ -64,7 +67,8 @@ const Sidebar = () => {
             to="/student/attendance"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
-            }>
+            }
+          >
             <AddIcon className="" />
             <h1 className="font-normal">Attendance</h1>
           </NavLink>
@@ -74,11 +78,32 @@ const Sidebar = () => {
             to="/student/subjectlist"
             className={({ isActive }) =>
               isActive ? isActiveStyle : isNotActiveStyle
-            }>
+            }
+          >
             <EngineeringIcon className="" />
             <h1 className="font-normal">Subject List</h1>
           </NavLink>
+          <NavLink
+            to="/student/course"
+            className={({ isActive }) =>
+              isActive ? isActiveStyle : isNotActiveStyle
+            }
+          >
+            <EngineeringIcon className="" />
+            <h1 className="font-normal">Course</h1>
+          </NavLink>
         </div>
+        {/* <div className="">
+          <NavLink
+            to="/student/course"
+            className={({ isActive }) =>
+              isActive ? isActiveStyle : isNotActiveStyle
+            }
+          >
+            <EngineeringIcon className="" />
+            <h1 className="font-normal">Course</h1>
+          </NavLink>
+        </div> */}
       </div>
     </div>
   );

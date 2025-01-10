@@ -34,3 +34,5 @@ export const DELETE_STUDENT = "DELETE_STUDENT";
 export const DELETE_SUBJECT = "DELETE_SUBJECT";
 export const CREATE_NOTICE = "CREATE_NOTICE";
 export const GET_NOTICE = "GET_NOTICE";
+export const CREATE_POST = "CREATE_POST";
+export const CREATE_REPLY = "CREATE_REPLY";

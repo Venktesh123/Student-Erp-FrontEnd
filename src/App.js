@@ -42,6 +42,9 @@ import DeleteFaculty from "./components/admin/deleteFaculty/DeleteFaculty";
 import DeleteStudent from "./components/admin/deleteStudent/DeleteStudent";
 import DeleteSubject from "./components/admin/deleteSubject/DeleteSubject";
 import CreateNotice from "./components/admin/createNotice/CreateNotice";
+import CourseDetails from "../src/components/student/course/courseDetails";
+import PostPage from "./components/post/postPage";
+import CreatePost from "./components/post/createPost";
 
 const App = () => {
   return (
@@ -97,6 +100,10 @@ const App = () => {
       <Route path="/student/subjectlist" element={<SubjectList />} />
       <Route path="/student/testresult" element={<TestResult />} />
       <Route path="/student/attendance" element={<Attendance />} />
+      <Route path="/student/course" element={<CourseDetails />} />
+      <Route path="/student/post" element={<PostPage />} />
+      <Route path="/student/post/:postId" element={<PostPage />} />
+      <Route path="/student/create/post" element={<CreatePost />} />
     </Routes>
   );
 };
