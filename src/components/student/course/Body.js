@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Body = () => {
   // Mock data for a single course, unit, and lectures
@@ -24,11 +24,14 @@ const Body = () => {
     ],
   };
 
-  const [selectedVideo, setSelectedVideo] = useState(null); // Initially no video selected
+  // Set default video as the first lecture of the first unit
+  const [selectedVideo, setSelectedVideo] = useState(
+    mockData.unit[0].lectures[0].videoId
+  );
   const [expandedUnit, setExpandedUnit] = useState(null); // To track the expanded unit
 
   const handleLectureClick = (videoId) => {
-    setSelectedVideo(videoId);
+    setSelectedVideo(videoId); // Update the video when a new lecture is selected
   };
 
   const toggleUnit = (unitIndex) => {
@@ -63,7 +66,7 @@ const Body = () => {
                 <select
                   className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   onChange={(e) => handleLectureClick(e.target.value)}
-                  defaultValue=""
+                  defaultValue={selectedVideo}
                 >
                   <option value="" disabled>
                     Select a Lecture
