@@ -4,48 +4,80 @@ const Body = () => {
   // Mock data for a single course, unit, and lectures
   const mockData = {
     courseName: "Course 1",
-    unit: {
-      unitName: "Unit and Dimensions",
-      lectures: [
-        { lectureName: "Applications", videoId: "fiMemypKqEI" },
-        { lectureName: "System And Sorounding", videoId: "fiMemypKqEI" },
-      ],
-    },
+    unit: [
+      {
+        unitName: "Unit and Dimension",
+        icon: "📚", // Add an icon for the unit
+        lectures: [
+          { lectureName: "Lecture 1.1", videoId: "fiMemypKqEI" },
+          { lectureName: "Lecture 1.2", videoId: "yzgGHAoN_68" },
+        ],
+      },
+      {
+        unitName: "Applications",
+        icon: "📝", // Add an icon for the unit
+        lectures: [
+          { lectureName: "Lecture 2.1", videoId: "fiMemypKqEI" },
+          { lectureName: "Lecture 2.2", videoId: "yzgGHAoN_68" },
+        ],
+      },
+    ],
   };
 
   const [selectedVideo, setSelectedVideo] = useState(null); // Initially no video selected
+  const [expandedUnit, setExpandedUnit] = useState(null); // To track the expanded unit
 
   const handleLectureClick = (videoId) => {
     setSelectedVideo(videoId);
   };
 
+  const toggleUnit = (unitIndex) => {
+    setExpandedUnit(expandedUnit === unitIndex ? null : unitIndex); // Toggle unit dropdown visibility
+  };
+
   return (
-    <div className="flex flex-row items-center justify-center w-full h-screen bg-transparent">
-      {/* Left Section: Dropdown List */}
+    <div className="flex flex-row items-start justify-center w-full h-screen bg-transparent p-4">
+      {/* Left Section: Course and Units */}
       <div className="w-1/4 h-full p-4 border-r border-gray-300">
-        <div className="mb-4 text-xl font-semibold text-center">
+        <div className="mb-4 text-xl font-semibold text-center p-2 border border-gray-300">
           {mockData.courseName}
         </div>
 
-        <div className="mb-4 text-lg font-medium text-center">
-          {mockData.unit.unitName}
-        </div>
+        {/* Render each unit */}
+        {mockData.unit.map((unit, index) => (
+          <div key={index} className="mb-6">
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={() => toggleUnit(index)}
+            >
+              {/* Icon for the unit */}
+              <span className="mr-2 text-xl">{unit.icon}</span>
+              <div className="text-lg font-medium text-indigo-600">
+                {unit.unitName}
+              </div>
+            </div>
 
-        {/* Dropdown for lectures */}
-        <select
-          className="w-full p-2 border border-gray-300 rounded-md"
-          onChange={(e) => handleLectureClick(e.target.value)}
-          defaultValue=""
-        >
-          <option value="" disabled>
-            Select a Lecture
-          </option>
-          {mockData.unit.lectures.map((lecture, index) => (
-            <option key={index} value={lecture.videoId}>
-              {lecture.lectureName}
-            </option>
-          ))}
-        </select>
+            {/* Show lectures dropdown if the unit is expanded */}
+            {expandedUnit === index && (
+              <div className="mt-2">
+                <select
+                  className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  onChange={(e) => handleLectureClick(e.target.value)}
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Select a Lecture
+                  </option>
+                  {unit.lectures.map((lecture, idx) => (
+                    <option key={idx} value={lecture.videoId}>
+                      {lecture.lectureName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
 
       {/* Right Section: Video Section */}
