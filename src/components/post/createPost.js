@@ -8,7 +8,7 @@ const CreatePost = () => {
 
   // Create Axios instance
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:5001/api", // Replace with your backend API base URL
+    baseURL: "https://student-erp-y1qw.vercel.app/api", // Replace with your backend API base URL
   });
 
   // Add Authorization header to all requests

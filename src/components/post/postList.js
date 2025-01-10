@@ -10,7 +10,9 @@ const PostList = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/posts");
+        const res = await axios.get(
+          "https://student-erp-y1qw.vercel.app/api/posts"
+        );
         setPosts(res.data);
       } catch (err) {
         console.error(err);

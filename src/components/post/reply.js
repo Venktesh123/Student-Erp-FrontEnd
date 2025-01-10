@@ -30,7 +30,7 @@ const ReplyForm = ({ postId, onReplyAdded }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/posts/reply/${postId}`,
+        `https://student-erp-y1qw.vercel.app/api/posts/reply/${postId}`,
         { text },
         {
           headers: {
