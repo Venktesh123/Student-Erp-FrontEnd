@@ -132,14 +132,14 @@ const Body = () => {
           <input
             id="question"
             type="text"
-            className="w-full p-5 border border-gray-300 rounded-md"
+            className="w-3/4 p-2 border border-gray-300 rounded-md h-10"
             placeholder="Ask me anything..."
             value={question}
             onChange={handleQuestionChange}
           />
           <button
             onClick={handleQuestionSubmit}
-            className="ml-4 p-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            className="ml-4 w-1/4 p-2 h-10 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
             Ask Question
           </button>
