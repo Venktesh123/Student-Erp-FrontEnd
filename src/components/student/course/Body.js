@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Body = () => {
-  // Mock data for a single course, unit, and lectures
   const mockData = {
     courseName: "Course 1",
     unit: [
@@ -23,6 +22,17 @@ const Body = () => {
         ],
       },
     ],
+  };
+
+  const fallbackAnswers = [
+    "I'm not sure about that. Let me get back to you!",
+    "That's an interesting question, but I don't have an answer right now.",
+    "I couldn't find anything useful. Try rephrasing your question.",
+    "Sorry, I'm unable to help with that at the moment. Please try again later.",
+  ];
+
+  const getRandomFallbackAnswer = () => {
+    return fallbackAnswers[Math.floor(Math.random() * fallbackAnswers.length)];
   };
 
   const [selectedVideo, setSelectedVideo] = useState(
@@ -52,37 +62,37 @@ const Body = () => {
           question,
         }
       );
-      console.log(response.data.answer, "ans");
-      setAnswer(response.data.answer); // Set the answer received from the API
+
+      if (response.data.answer) {
+        setAnswer(response.data.answer);
+      } else {
+        setAnswer(getRandomFallbackAnswer());
+      }
     } catch (error) {
       console.error("Error fetching answer:", error);
-      setAnswer("Sorry, there was an error fetching the answer.");
+      setAnswer(getRandomFallbackAnswer());
     }
   };
 
   return (
     <div className="flex flex-row items-start justify-center w-full h-screen bg-transparent p-4">
-      {/* Left Section: Course and Units */}
       <div className="w-1/4 h-full p-4 border-r border-gray-300">
         <div className="mb-4 text-xl font-semibold text-center p-2 border border-gray-300">
           {mockData.courseName}
         </div>
 
-        {/* Render each unit */}
         {mockData.unit.map((unit, index) => (
           <div key={index} className="mb-6">
             <div
               className="flex items-center cursor-pointer"
               onClick={() => toggleUnit(index)}
             >
-              {/* Icon for the unit */}
               <span className="mr-2 text-xl">{unit.icon}</span>
               <div className="text-lg font-medium text-indigo-600">
                 {unit.unitName}
               </div>
             </div>
 
-            {/* Show lectures dropdown if the unit is expanded */}
             {expandedUnit === index && (
               <div className="mt-2">
                 <select
@@ -105,13 +115,12 @@ const Body = () => {
         ))}
       </div>
 
-      {/* Right Section: Video Section */}
-      <div className="w-3/4 h-full flex flex-col items-center justify-center">
-        {selectedVideo ? (
-          <div
-            className="relative w-full max-w-3xl"
-            style={{ height: "300px" }}
-          >
+      <div className="w-3/4 h-full flex flex-col items-start overflow-y-auto">
+        <div
+          className="relative w-full max-w-3xl"
+          style={{ height: "250px", marginBottom: "1rem" }}
+        >
+          {selectedVideo ? (
             <iframe
               className="absolute top-0 left-0 w-full h-full border-2 border-gray-300 rounded-lg"
               src={`https://www.youtube.com/embed/${selectedVideo}`}
@@ -120,15 +129,14 @@ const Body = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-          </div>
-        ) : (
-          <div className="text-gray-500 text-center">
-            Please select a lecture to view the video.
-          </div>
-        )}
+          ) : (
+            <div className="text-gray-500 text-center">
+              Please select a lecture to view the video.
+            </div>
+          )}
+        </div>
 
-        {/* Input Section Below the Video */}
-        <div className="w-full max-w-3xl mt-4 px-4 flex">
+        <div className="w-full max-w-3xl mb-4 px-4 flex">
           <input
             id="question"
             type="text"
@@ -145,9 +153,8 @@ const Body = () => {
           </button>
         </div>
 
-        {/* Display the Question and Answer */}
         {answer && (
-          <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl">
+          <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl overflow-y-auto">
             <p className="font-semibold">Answer:</p>
             <p>{answer}</p>
           </div>
