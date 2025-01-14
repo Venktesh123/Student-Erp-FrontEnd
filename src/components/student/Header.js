@@ -30,7 +30,8 @@ const Header = () => {
       {/* Header Top Section */}
       <div className="flex justify-between items-center">
         <div className="flex items-center">
-          <img src="../kiit.jpeg" alt="Logo" className="h-7" />
+          <img src="../kiit.png" alt="Logo" className="h-[4.5rem]" />{" "}
+          {/* Increased logo size */}
           <h1 className="font-bold text-blue-600 text-sm"></h1>
         </div>
         <h1 className="font-semibold text-black">
