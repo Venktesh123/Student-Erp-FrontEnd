@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <div className="flex-[0.05] flex justify-between items-center mx-5 my-2">
       <div className="flex items-center ">
-        <img src="../kiit.jpeg" alt="" className="h-7" />
+        <img src="../kiit.png" alt="" className="h-7" />
         <h1 className="font-bold text-blue-600 text-sm"></h1>
       </div>
       <h1 className="font-semibold text-black">Welcome</h1>
