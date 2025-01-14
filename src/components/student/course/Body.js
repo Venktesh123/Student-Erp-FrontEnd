@@ -41,6 +41,7 @@ const Body = () => {
   const [expandedUnit, setExpandedUnit] = useState(null);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false); // New loading state
 
   const handleLectureClick = (videoId) => {
     setSelectedVideo(videoId);
@@ -55,6 +56,7 @@ const Body = () => {
   };
 
   const handleQuestionSubmit = async () => {
+    setLoading(true); // Start loader
     try {
       const response = await axios.post(
         "http://localhost:5001/api/chatboat/ask-question",
@@ -71,6 +73,8 @@ const Body = () => {
     } catch (error) {
       console.error("Error fetching answer:", error);
       setAnswer(getRandomFallbackAnswer());
+    } finally {
+      setLoading(false); // Stop loader
     }
   };
 
@@ -153,11 +157,17 @@ const Body = () => {
           </button>
         </div>
 
-        {answer && (
-          <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl overflow-y-auto">
-            <p className="font-semibold">Answer:</p>
-            <p>{answer}</p>
+        {loading ? ( // Show loader if loading
+          <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl text-center">
+            <p>Loading...</p>
           </div>
+        ) : (
+          answer && (
+            <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl overflow-y-auto">
+              <p className="font-semibold">Answer:</p>
+              <p>{answer}</p>
+            </div>
+          )
         )}
       </div>
     </div>
