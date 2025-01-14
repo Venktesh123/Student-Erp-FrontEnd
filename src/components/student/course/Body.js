@@ -41,7 +41,7 @@ const Body = () => {
   const [expandedUnit, setExpandedUnit] = useState(null);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  const [loading, setLoading] = useState(false); // New loading state
+  const [loading, setLoading] = useState(false);
 
   const handleLectureClick = (videoId) => {
     setSelectedVideo(videoId);
@@ -56,7 +56,7 @@ const Body = () => {
   };
 
   const handleQuestionSubmit = async () => {
-    setLoading(true); // Start loader
+    setLoading(true);
     try {
       const response = await axios.post(
         "http://localhost:5001/api/chatboat/ask-question",
@@ -74,7 +74,7 @@ const Body = () => {
       console.error("Error fetching answer:", error);
       setAnswer(getRandomFallbackAnswer());
     } finally {
-      setLoading(false); // Stop loader
+      setLoading(false);
     }
   };
 
@@ -144,26 +144,29 @@ const Body = () => {
           <input
             id="question"
             type="text"
-            className="w-3/4 p-2 border border-gray-300 rounded-md h-10"
+            className="w-3/4 p-2 border border-gray-300 rounded-full h-10 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="Ask me anything..."
             value={question}
             onChange={handleQuestionChange}
           />
           <button
             onClick={handleQuestionSubmit}
-            className="ml-4 w-1/4 p-2 h-10 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            className="ml-4 w-1/4 p-2 h-10 bg-indigo-600 text-white rounded-full hover:bg-indigo-700"
           >
             Ask Question
           </button>
         </div>
 
-        {loading ? ( // Show loader if loading
+        {loading ? (
           <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl text-center">
             <p>Loading...</p>
           </div>
         ) : (
           answer && (
-            <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl overflow-y-auto">
+            <div
+              className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl overflow-y-auto"
+              style={{ maxHeight: "200px" }}
+            >
               <p className="font-semibold">Answer:</p>
               <p>{answer}</p>
             </div>
