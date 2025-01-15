@@ -66,7 +66,6 @@ const Body = () => {
       );
 
       if (response.data.answer) {
-        console.log(response.data.answer);
         setAnswer(response.data.answer);
       } else {
         setAnswer(getRandomFallbackAnswer());
@@ -81,6 +80,7 @@ const Body = () => {
 
   return (
     <div className="flex flex-row items-start justify-center w-full h-screen bg-transparent p-4">
+      {/* Sidebar */}
       <div className="w-1/4 h-full p-4 border-r border-gray-300">
         <div className="mb-4 text-xl font-semibold text-center p-2 border border-gray-300">
           {mockData.courseName}
@@ -120,7 +120,9 @@ const Body = () => {
         ))}
       </div>
 
+      {/* Main Content */}
       <div className="w-3/4 h-full flex flex-col items-start overflow-y-auto">
+        {/* Video Player */}
         <div
           className="relative w-full max-w-3xl"
           style={{ height: "250px", marginBottom: "1rem" }}
@@ -141,6 +143,7 @@ const Body = () => {
           )}
         </div>
 
+        {/* Question and Answer Section */}
         <div className="w-full max-w-3xl mb-4 px-4 flex">
           <input
             id="question"
@@ -158,18 +161,19 @@ const Body = () => {
           </button>
         </div>
 
+        {/* Answer Display */}
         {loading ? (
-          <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl text-center">
+          <div className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl text-center shadow-sm">
             <p>Loading...</p>
           </div>
         ) : (
           answer && (
             <div
-              className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl overflow-y-auto"
-              style={{ maxHeight: "200px" }}
+              className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl overflow-y-auto shadow-md"
+              style={{ maxHeight: "200px" }} // Restrict height for scroll
             >
-              <p className="font-semibold">Answer:</p>
-              <p>{answer}</p>
+              <p className="font-semibold text-indigo-700 mb-2">Answer:</p>
+              <p className="text-gray-800">{answer}</p>
             </div>
           )
         )}
