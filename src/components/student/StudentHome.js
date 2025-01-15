@@ -12,31 +12,38 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 const StudentHome = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  // Safely parse user from localStorage
+  const user = JSON.parse(localStorage.getItem("user")) || { result: {} };
 
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getSubject(user.result.department, user.result.year));
-    dispatch(
-      getTestResult(
-        user.result.department,
-        user.result.year,
-        user.result.section
-      )
-    );
-    dispatch(
-      getAttendance(
-        user.result.department,
-        user.result.year,
-        user.result.section
-      )
-    );
+    if (user?.result?.department && user?.result?.year) {
+      dispatch(getSubject(user.result.department, user.result.year));
+      dispatch(
+        getTestResult(
+          user.result.department,
+          user.result.year,
+          user.result.section
+        )
+      );
+      dispatch(
+        getAttendance(
+          user.result.department,
+          user.result.year,
+          user.result.section
+        )
+      );
+    }
     dispatch(getNotice());
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   return (
-    <div className="bg-[#d6d9e0] h-screen flex items-center justify-center">
-      <div className="flex flex-col  bg-[#f4f6fa] h-5/6 w-[95%] rounded-2xl shadow-2xl space-y-6 overflow-y-hidden">
+    <div
+      className="bg-[#d6d9e0] min-h-screen h-full flex items-center justify-center"
+      style={{ height: "100%" }}
+    >
+      <div className="flex flex-col bg-[#f4f6fa] h-5/6 w-[95%] rounded-2xl shadow-2xl space-y-6 overflow-y-hidden">
         <Header />
         <div className="flex flex-[0.95]">
           <Sidebar />

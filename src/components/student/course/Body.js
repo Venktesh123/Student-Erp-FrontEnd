@@ -79,9 +79,9 @@ const Body = () => {
   };
 
   return (
-    <div className="flex flex-row items-start justify-center w-full h-screen bg-transparent p-4">
+    <div className="flex flex-row items-start justify-center w-full h-screen bg-gray-50 h-full">
       {/* Sidebar */}
-      <div className="w-1/4 h-full p-4 border-r border-gray-300">
+      <div className="w-1/4 h-full p-4 border-r border-gray-300 overflow-y-auto scrollbar-custom">
         <div className="mb-4 text-xl font-semibold text-center p-2 border border-gray-300">
           {mockData.courseName}
         </div>
@@ -121,11 +121,11 @@ const Body = () => {
       </div>
 
       {/* Main Content */}
-      <div className="w-3/4 h-full flex flex-col items-start overflow-y-auto">
+      <div className="w-3/4 h-full flex flex-col items-start overflow-y-auto p-4 scrollbar-custom">
         {/* Video Player */}
         <div
-          className="relative w-full max-w-3xl"
-          style={{ height: "250px", marginBottom: "1rem" }}
+          className="relative w-full max-w-3xl mb-4"
+          style={{ height: "250px" }}
         >
           {selectedVideo ? (
             <iframe
@@ -170,7 +170,9 @@ const Body = () => {
           answer && (
             <div
               className="mt-4 p-4 border border-gray-300 rounded-md w-full max-w-3xl overflow-y-auto shadow-md"
-              style={{ maxHeight: "200px" }} // Restrict height for scroll
+              style={{
+                maxHeight: "200px", // Restrict answer section height
+              }}
             >
               <p className="font-semibold text-indigo-700 mb-2">Answer:</p>
               <p className="text-gray-800">{answer}</p>
