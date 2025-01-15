@@ -9,16 +9,16 @@ const Body = () => {
         unitName: "Unit and Dimension",
         icon: "📚",
         lectures: [
-          { lectureName: "Lecture 1.1", videoId: "fiMemypKqEI" },
-          { lectureName: "Lecture 1.2", videoId: "yzgGHAoN_68" },
+          { lectureName: "Lecture 1.1", videoId: "eLOtUPxBvVE" },
+          { lectureName: "Lecture 1.2", videoId: "inJpnS-Sy_k" },
         ],
       },
       {
         unitName: "Applications",
         icon: "📝",
         lectures: [
-          { lectureName: "Lecture 2.1", videoId: "fiMemypKqEI" },
-          { lectureName: "Lecture 2.2", videoId: "yzgGHAoN_68" },
+          { lectureName: "Lecture 2.1", videoId: "eLOtUPxBvVE" },
+          { lectureName: "Lecture 2.2", videoId: "inJpnS-Sy_k" },
         ],
       },
     ],
