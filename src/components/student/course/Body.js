@@ -59,13 +59,14 @@ const Body = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/chatboat/ask-question",
+        "https://student-erp-y1qw.vercel.app/api/chatboat/ask-question",
         {
           question,
         }
       );
 
       if (response.data.answer) {
+        console.log(response.data.answer);
         setAnswer(response.data.answer);
       } else {
         setAnswer(getRandomFallbackAnswer());
